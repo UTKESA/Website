@@ -119,6 +119,12 @@ ul.icons li {
 
 ul.icons li a {
   text-decoration: none;
+  
+}
+
+ul.icons_20px {
+  padding: 20px 0;
+  font-size: 20px;
 }
 
 ul.icons_circle {

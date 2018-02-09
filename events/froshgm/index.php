@@ -1,26 +1,53 @@
+<!-- Image gallery using Fancy Box -->
+<!-- Same thumbnail as original photo version -->
 
-<?php
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- fancybox CSS library -->
+<link rel="stylesheet" type="text/css" href="/fancybox/jquery.fancybox.css">
+<!-- JS library -->
+<script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+<!-- fancybox JS library -->
+<script src="/fancybox/jquery.fancybox.js"></script>
 
-// Include the UberGallery class
-include($_SERVER['DOCUMENT_ROOT'].'/ubergallery/resources/UberGallery.php');
+<script type="text/javascript">
+    $("[data-fancybox]").fancybox({ });
+</script>
 
-// Initialize the UberGallery object
-$gallery = new UberGallery();
+<!-- Testing -->
 
-// Initialize the gallery array
-$galleryArray = $gallery->readImageDirectory('gall');
+<div class="container">
+    <div class="gallery">
+        <?php
+        $thumbs = "tn/";
+        $images = glob("*.jpg");
+        foreach($images as $imageURL)
+        {
+            //set image thumbnails
+            $imageThumbURL = $imageURL;
+        ?>
+            <a href="<?php echo $imageURL; ?>" data-fancybox="group">
+                <img src="<?php echo $imageThumbURL; ?>" alt="" />
+            </a>
+        <?php 
+        } ?>
+    </div>
+</div>
 
-// Define theme path
-if (!defined('THEMEPATH')) {
-  define('THEMEPATH', $gallery->getThemePath());
+<style type="text/css">
+.gallery img {
+    width: 20%;
+    height: auto;
+    border: 5px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .3s;
 }
 
-// Set path to theme index
-$themeIndex = $gallery->getThemePath(true) . '/index.php';
-
-// Initialize the theme
-if (file_exists($themeIndex)) {
-  include($themeIndex);
-} else {
-  die('ERROR: Failed to initialize theme');
+/* Smart phone view */
+@media only screen and (max-width: 500px) {
+    .gallery img {
+        width: 80%;
+    }
 }
+</style>
+
